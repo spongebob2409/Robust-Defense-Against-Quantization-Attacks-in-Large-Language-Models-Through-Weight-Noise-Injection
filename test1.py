@@ -22,7 +22,7 @@ T2=T1.to(device)
 print("CUDA tensor")
 print(T2)
 
-# Load Phi-3 Mini 3.8B model
+# Load Phi-3 Mini 3.8B model 
 print("\nLoading Phi-3 Mini 3.8B model...")
 model_name = "microsoft/Phi-3-mini-4k-instruct"
 
