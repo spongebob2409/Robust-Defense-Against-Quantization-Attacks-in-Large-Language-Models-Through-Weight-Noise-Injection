@@ -30,8 +30,14 @@ model = AutoModelForCausalLM.from_pretrained(
     attn_implementation='eager'
 )
 
+# Calculate actual model size
+param_size = sum(p.numel() * p.element_size() for p in model.parameters())
+buffer_size = sum(b.numel() * b.element_size() for b in model.buffers())
+model_size_bytes = param_size + buffer_size
+model_size_gb = model_size_bytes / (1024**3)
+
 print(f"✓ Model loaded on {device}")
-print(f"  Model size: ~7.6 GB (FP16)")
+print(f"  Model size: {model_size_gb:.2f} GB (FP16)")
 print(f"  Precision: float16")
 
 # ============================================================================
@@ -270,7 +276,8 @@ if __name__ == "__main__":
             "model_name": model_name,
             "precision": "float16",
             "timestamp": start_time.isoformat(),
-            "device": str(device)
+            "device": str(device),
+            "model_size_gb": float(model_size_gb)
         }
         
         # 1. Compute Perplexity

@@ -157,20 +157,21 @@ print("=" * 80)
 print(f"\n{'Model':<20} {'Size (GB)':>12} {'Compression':>12} {'Memory Saved':>15}")
 print("-" * 65)
 
-fp16_size = 7.6
-print(f"{'FP16 Baseline':<20} {fp16_size:>11.1f}  {'1x':>11} {'-':>14}")
+# Read actual model sizes from results
+fp16_size = fp16_results.get('model_size_gb', 7.6)  # fallback to 7.6 if not present
+print(f"{'FP16 Baseline':<20} {fp16_size:>11.2f}  {'1x':>11} {'-':>14}")
 
 if int8_available:
-    int8_size = 1.9
-    int8_compression = fp16_size / int8_size
+    int8_size = int8_results.get('model_size_gb', 1.9)
+    int8_compression = int8_results.get('compression_ratio', fp16_size / int8_size)
     int8_saved = fp16_size - int8_size
-    print(f"{'INT8 (8-bit)':<20} {int8_size:>11.1f}  {f'{int8_compression:.1f}x':>11} {f'{int8_saved:.1f} GB':>14}")
+    print(f"{'INT8 (8-bit)':<20} {int8_size:>11.2f}  {f'{int8_compression:.1f}x':>11} {f'{int8_saved:.2f} GB':>14}")
 
 if awq_available:
-    awq_size = 1.0
-    awq_compression = fp16_size / awq_size
+    awq_size = awq_results.get('model_size_gb', 1.0)
+    awq_compression = awq_results.get('compression_ratio', fp16_size / awq_size)
     awq_saved = fp16_size - awq_size
-    print(f"{'AWQ 4-bit':<20} {awq_size:>11.1f}  {f'{awq_compression:.1f}x':>11} {f'{awq_saved:.1f} GB':>14}")
+    print(f"{'AWQ 4-bit':<20} {awq_size:>11.2f}  {f'{awq_compression:.1f}x':>11} {f'{awq_saved:.2f} GB':>14}")
 
 # ============================================================================
 # GENERATION PERFORMANCE
@@ -267,13 +268,13 @@ print("\n" + "FP16 BASELINE (Reference)")
 print("-" * 40)
 print(f"  ✓ Best quality (PPL: {fp16_ppl:.2f})")
 print(f"  ✓ Reference for all comparisons")
-print(f"  ✗ Largest size (7.6 GB)")
+print(f"  ✗ Largest size ({fp16_size:.2f} GB)")
 print(f"  ✗ Highest memory requirement")
 
 if int8_available:
     print("\n" + "INT8 (8-bit) - LLM.int8")
     print("-" * 40)
-    print(f"  ✓ 4x compression (7.6 GB → 1.9 GB)")
+    print(f"  ✓ {int8_compression:.1f}x compression ({fp16_size:.2f} GB → {int8_size:.2f} GB)")
     print(f"  ✓ Low quality degradation (ΔPPL: {int8_ppl_deg:+.2f}%)")
     print(f"  ✓ Low distribution drift (KL: {int8_kl:.6f})")
     print(f"  ~ Good balance for production use")
@@ -292,8 +293,8 @@ if int8_available:
 if awq_available:
     print("\n" + "AWQ 4-bit - Aggressive Compression")
     print("-" * 40)
-    print(f"  ✓ 7-8x compression (7.6 GB → 1.0 GB)")
-    print(f"  ✓ Maximum memory savings (6.6 GB saved)")
+    print(f"  ✓ {awq_compression:.1f}x compression ({fp16_size:.2f} GB → {awq_size:.2f} GB)")
+    print(f"  ✓ Maximum memory savings ({awq_saved:.2f} GB saved)")
     print(f"  ✗ Higher quality degradation (ΔPPL: {awq_ppl_deg:+.2f}%)")
     print(f"  ✗ Higher distribution drift (KL: {awq_kl:.6f})")
     print(f"  ~ Best for resource-constrained deployment")
@@ -347,7 +348,7 @@ elif int8_available:
     if abs(int8_ppl_deg) < 2:
         print("✓ INT8 RECOMMENDED:")
         print(f"  • Minimal quality degradation (ΔPPL: {int8_ppl_deg:+.2f}%)")
-        print(f"  • Good compression (4x)")
+        print(f"  • Good compression ({int8_compression:.1f}x)")
     else:
         print("⚠ INT8 SHOWS DEGRADATION:")
         print(f"  • Quality loss: {int8_ppl_deg:+.2f}%")
@@ -357,7 +358,7 @@ elif awq_available:
     if abs(awq_ppl_deg) < 5:
         print("✓ AWQ 4-bit USABLE:")
         print(f"  • Acceptable quality loss (ΔPPL: {awq_ppl_deg:+.2f}%)")
-        print(f"  • Maximum compression (7-8x)")
+        print(f"  • Maximum compression ({awq_compression:.1f}x)")
     else:
         print("⚠ AWQ 4-bit SHOWS SIGNIFICANT DEGRADATION:")
         print(f"  • Quality loss: {awq_ppl_deg:+.2f}%")
@@ -376,7 +377,7 @@ report = {
         "fp16_baseline": {
             "perplexity": float(fp16_ppl),
             "avg_loss": float(fp16_loss),
-            "model_size_gb": 7.6,
+            "model_size_gb": float(fp16_size),
             "avg_generation_time": float(fp16_gen_time),
             "success_rate": float(fp16_success_rate)
         }
@@ -391,8 +392,8 @@ if int8_available:
         "perplexity": float(int8_ppl),
         "ppl_degradation_pct": float(int8_ppl_deg),
         "kl_divergence": float(int8_kl),
-        "model_size_gb": 1.9,
-        "compression_ratio": "4x",
+        "model_size_gb": float(int8_size),
+        "compression_ratio": f"{int8_compression:.1f}x",
         "avg_generation_time": float(int8_gen_time),
         "success_rate": float(int8_success_rate),
         "harm_level": harm_level
@@ -403,8 +404,8 @@ if awq_available:
         "perplexity": float(awq_ppl),
         "ppl_degradation_pct": float(awq_ppl_deg),
         "kl_divergence": float(awq_kl),
-        "model_size_gb": 1.0,
-        "compression_ratio": "7-8x",
+        "model_size_gb": float(awq_size),
+        "compression_ratio": f"{awq_compression:.1f}x",
         "avg_generation_time": float(awq_gen_time),
         "success_rate": float(awq_success_rate),
         "harm_level": harm_level

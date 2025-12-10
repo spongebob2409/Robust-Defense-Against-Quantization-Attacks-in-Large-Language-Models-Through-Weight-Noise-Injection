@@ -96,11 +96,18 @@ model = AutoModelForCausalLM.from_pretrained(
     attn_implementation='eager'
 )
 
+# Calculate actual model size
+param_size = sum(p.numel() * p.element_size() for p in model.parameters())
+buffer_size = sum(b.numel() * b.element_size() for b in model.buffers())
+model_size_bytes = param_size + buffer_size
+model_size_gb = model_size_bytes / (1024**3)
+compression_ratio = 7.6 / model_size_gb  # FP16 baseline is ~7.6 GB
+
 print(f"\n✓ 4-bit quantized model loaded on GPU")
-print(f"  Model size: ~1.0 GB (4-bit)")
+print(f"  Model size: {model_size_gb:.2f} GB (4-bit)")
 print(f"  Precision: 4-bit NormalFloat (NF4)")
 print(f"  Double quantization: Enabled")
-print(f"  Compression ratio: ~7-8x")
+print(f"  Compression ratio: ~{compression_ratio:.1f}x")
 
 # ============================================================================
 # PERPLEXITY EVALUATION ON WIKITEXT-2
@@ -538,7 +545,7 @@ if __name__ == "__main__":
         print(f"Successful generations: {stats['successful_generations']}/{stats['total_prompts']}")
         print(f"Avg response length: {stats['avg_output_length']:.1f} tokens")
         print(f"Avg generation time: {awq_time:.3f}s per prompt")
-        print(f"Model size: ~1.0 GB (7-8x compression)")
+        print(f"Model size: {model_size_gb:.2f} GB ({compression_ratio:.1f}x compression)")
         print("\nAWQ 4-bit quantized model ready!")
         
     except Exception as e:
