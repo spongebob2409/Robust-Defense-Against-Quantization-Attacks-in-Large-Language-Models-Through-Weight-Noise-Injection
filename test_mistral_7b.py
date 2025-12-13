@@ -22,16 +22,17 @@ T2=T1.to(device)
 print("CUDA tensor")
 print(T2)
 
-# Load Qwen 0.5B model
-print("\nLoading Qwen 0.5B model on GPU...")
-model_name = "Qwen/Qwen2.5-0.5B-Instruct"
+# Load Mistral-7B model
+print("\nLoading Mistral-7B model on GPU...")
+model_name = "mistralai/Mistral-7B-Instruct-v0.2"
 
-tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
     torch_dtype=torch.float16,
-    device_map="auto",
-    trust_remote_code=True
+    device_map="auto"
 )
 
 print(f"Model loaded successfully on {model.device}")

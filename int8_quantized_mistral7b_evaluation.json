@@ -1,0 +1,429 @@
+{
+  "model_name": "mistralai/Mistral-7B-Instruct-v0.2",
+  "quantization_method": "INT8",
+  "evaluation_timestamp": "2025-12-13T16:16:20.104343",
+  "model_info": {
+    "total_params": 7241732096,
+    "total_params_billions": 7.241732096,
+    "model_memory_gb": 6.988777160644531,
+    "gpu_allocated_gb": 6.9939045906066895,
+    "gpu_reserved_gb": 7.28515625,
+    "load_time_seconds": 8.680049657821655
+  },
+  "memory_metrics": {
+    "fp16_baseline_size_gb": 13.488777160644531,
+    "quantized_size_gb": 6.988777160644531,
+    "memory_reduction_percent": 48.18820803834387,
+    "size_ratio_fp16_over_quantized": 1.9300625632482673
+  },
+  "wikitext2_evaluation": {
+    "perplexity": 11.944727914123758,
+    "loss": 2.4802900022951353,
+    "fp16_baseline_ppl": 11.632675515308803,
+    "ppl_degradation_percent": 2.6825505310819455,
+    "num_samples": 2475
+  },
+  "kl_divergence_vs_fp16": {
+    "note": "Not computed - baseline saved top-k logits, not full vocab distributions",
+    "mean": null,
+    "median": null,
+    "min": null,
+    "max": null,
+    "num_comparisons": 0
+  },
+  "prompt_suite_evaluation": {
+    "num_prompts": 96,
+    "results": [
+      {
+        "prompt": "Write a Python function to calculate the Fibonacci sequence recursively.",
+        "response": "Write a Python function to calculate the Fibonacci sequence recursively.\n\nHere's a Python function to calculate the Fibonacci sequence recursively:\n\n```python\ndef fibonacci(n):\n    \"\"\"\n    Calculate the nth number in the Fibonacci sequence"
+      },
+      {
+        "prompt": "Create a JavaScript function that validates an email address using regex.",
+        "response": "Create a JavaScript function that validates an email address using regex.\n\nHere's a simple JavaScript function that uses a regular expression to validate an email address:\n\n```javascript\nfunction validateEmail(email) {\n  const regex = /^(([^<>()[\\]\\\\.,;"
+      },
+      {
+        "prompt": "Implement a binary search algorithm in C++.",
+        "response": "Implement a binary search algorithm in C++.\n\nHere's a simple implementation of binary search algorithm in C++:\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint binarySearch(int arr[], int l, int r, int x"
+      },
+      {
+        "prompt": "Write a SQL query to find the top 5 customers by total purchase amount.",
+        "response": "Write a SQL query to find the top 5 customers by total purchase amount.\n\nHere's an example SQL query to find the top 5 customers by total purchase amount using a hypothetical `purchases` table:\n\n```sql\nSELECT c.customer_name, SUM(p"
+      },
+      {
+        "prompt": "Create a Python class for a simple banking system with deposit and withdraw methods.",
+        "response": "Create a Python class for a simple banking system with deposit and withdraw methods.\n\n```python\nclass BankAccount:\n    def __init__(self, balance=0):\n        self.balance = balance\n\n    def deposit(self, amount):\n        if amount > 0:\n            self"
+      },
+      {
+        "prompt": "Write a function in Java to reverse a linked list.",
+        "response": "Write a function in Java to reverse a linked list.\n\nHere's a simple Java implementation of reversing a singly linked list:\n\n```java\n// Definition for singly-linked list.\nclass ListNode {\n    int val;\n    ListNode next;\n"
+      },
+      {
+        "prompt": "Implement quicksort algorithm in Python with comments.",
+        "response": "Implement quicksort algorithm in Python with comments.\n\n```python\n# QuickSort algorithm implementation in Python\n\n# Function to swap two elements\ndef swap(arr, first, second):\n    arr[first], arr[second] = arr[second], arr[first]"
+      },
+      {
+        "prompt": "Create a REST API endpoint in Node.js to handle user authentication.",
+        "response": "Create a REST API endpoint in Node.js to handle user authentication.\n\nTo create a REST API endpoint in Node.js to handle user authentication, you can use the Express framework along with a package like `jsonwebtoken` for generating and verifying JSON Web Tokens (JWT). Here'"
+      },
+      {
+        "prompt": "Solve: If x + 5 = 12, what is the value of 3x - 7?",
+        "response": "Solve: If x + 5 = 12, what is the value of 3x - 7?\n\nTo find the value of 3x - 7, we first need to find the value of x. We are given the equation x +5 = 12.\n\nTo isolate x, we can follow these steps:"
+      },
+      {
+        "prompt": "Calculate the area of a circle with radius 7.5 cm.",
+        "response": "Calculate the area of a circle with radius 7.5 cm.\n\nTo calculate the area of a circle, you can use the following formula:\n\nArea = π * r^2\n\nwhere r is the radius of the circle.\n\nSubstituting the given value of the radius"
+      },
+      {
+        "prompt": "Find the derivative of f(x) = 3x² + 2x - 5.",
+        "response": "Find the derivative of f(x) = 3x² + 2x - 5.\n\nTo find the derivative of f(x) = 3x² + 2x - 5, we'll use the power rule for derivatives. The power rule states that if we have a function in the form f("
+      },
+      {
+        "prompt": "What is 15% of 240?",
+        "response": "What is 15% of 240?\nAnswer: 36\n\n36 is 15% of 240. To find 15% of 240, you can multiply 240 by 0.15 (which"
+      },
+      {
+        "prompt": "Solve the system of equations: 2x + y = 10 and x - y = 2.",
+        "response": "Solve the system of equations: 2x + y = 10 and x - y = 2.\n\nTo solve the system of equations, we need to find the values of x and y that make both equations true. We can do this by using the elimination method.\n\nFirst, let's get rid of the y variable in"
+      },
+      {
+        "prompt": "Calculate the probability of rolling two dice and getting a sum of 7.",
+        "response": "Calculate the probability of rolling two dice and getting a sum of 7.\n\nTo calculate the probability of rolling two dice and getting a sum of 7, we need to determine the total number of possible outcomes and the number of outcomes that result in a sum of 7.\n\nWhen rolling two dice, each"
+      },
+      {
+        "prompt": "Find the integral of ∫(2x + 3)dx.",
+        "response": "Find the integral of ∫(2x + 3)dx.\n\nTo find the integral of ∫(2x + 3)dx, we need to find the antiderivative of the function 2x + 3 with respect to x.\n\nThe power rule for integration"
+      },
+      {
+        "prompt": "What is the value of sin(45°) + cos(45°)?",
+        "response": "What is the value of sin(45°) + cos(45°)?\n\nTo find the value of sin(45°) + cos(45°), we can use the Pythagorean identity for the sine and cosine of 45 degrees:\n\nsin²(45"
+      },
+      {
+        "prompt": "Summarize the following: Artificial intelligence is transforming healthcare by enabling faster diagnoses, personalized treatment plans, and drug discovery. Machine learning algorithms can analyze medical images with high accuracy, while natural language processing helps extract insights from clinical notes.",
+        "response": "Summarize the following: Artificial intelligence is transforming healthcare by enabling faster diagnoses, personalized treatment plans, and drug discovery. Machine learning algorithms can analyze medical images with high accuracy, while natural language processing helps extract insights from clinical notes. AI-powered chatbots and virtual assistants can provide patients with personalized health advice and support, reducing the burden on healthcare providers. AI is also being used to develop new drugs and optimize clinical trials, leading to more effective and efficient treatments"
+      },
+      {
+        "prompt": "Provide a brief summary of climate change causes and effects in 2-3 sentences.",
+        "response": "Provide a brief summary of climate change causes and effects in 2-3 sentences. Climate change is a long-term alteration of temperature and typical weather patterns in a place. It is primarily caused by human activities, such as burning fossil fuels and deforestation, which release large amounts of greenhouse gases into"
+      },
+      {
+        "prompt": "Summarize the key benefits of renewable energy sources.",
+        "response": "Summarize the key benefits of renewable energy sources.\n\nRenewable energy sources offer numerous benefits compared to traditional energy sources. Here are some of the key advantages:\n\n1. Sustainability: Renewable energy sources are sustainable because they come from natural resources that are replen"
+      },
+      {
+        "prompt": "Condense this article about quantum computing into one paragraph.",
+        "response": "Condense this article about quantum computing into one paragraph. Quantum computing is a new and rapidly developing field of technology that uses quantum bits, or qubits, to process information. Unlike classical bits, which can only exist in one of two states (0 or 1), qubits can exist in multiple"
+      },
+      {
+        "prompt": "Summarize the main plot points of Romeo and Juliet in 3 sentences.",
+        "response": "Summarize the main plot points of Romeo and Juliet in 3 sentences. Romeo and Juliet fall in love at a masked ball, despite their families being longtime enemies, the Montagues and Capulets. Their secret relationship is discovered, leading to a series of tragic events, including the deaths of Romeo"
+      },
+      {
+        "prompt": "What are the key takeaways from the theory of evolution?",
+        "response": "What are the key takeaways from the theory of evolution?\n\n1. Common descent: All living organisms share a common ancestry.\n2. Natural selection: The process by which certain traits become more or less common in a population over generations due to their impact on survival and reproduction.\n"
+      },
+      {
+        "prompt": "Summarize the economic impact of the Industrial Revolution.",
+        "response": "Summarize the economic impact of the Industrial Revolution. The Industrial Revolution, which began in the late 18th century and continued through the 19th century, had a profound impact on the global economy. It marked a shift from agrarian and handcraft economies to industrial and factory"
+      },
+      {
+        "prompt": "Provide a brief overview of the water cycle.",
+        "response": "Provide a brief overview of the water cycle.\n\nThe water cycle, also known as the hydrologic cycle, is the continuous process by which water circulates between the Earth's oceans, atmosphere, and land. This cycle is essential for sustaining life on Earth, as"
+      },
+      {
+        "prompt": "What is the capital of France?",
+        "response": "What is the capital of France?\n\nParis is the capital city of France. It is the most populous city in France and is considered one of the leading business and cultural centers of Europe. Paris is known for its iconic landmarks such as the Eiffel Tower"
+      },
+      {
+        "prompt": "Who wrote the novel '1984'?",
+        "response": "Who wrote the novel '1984'?\n\nGeorge Orwell\n\nGeorge Orwell wrote the novel '1984'. It is a dystopian novel published in 1949, depicting a totalitarian society under the control of Big Brother"
+      },
+      {
+        "prompt": "What year did World War II end?",
+        "response": "What year did World War II end?\n\nWorld War II ended on September 2, 1945. On that day, Japan formally surrendered to the Allied Powers, effectively ending the war in the Pacific. The war in Europe had ended on May "
+      },
+      {
+        "prompt": "How many planets are in our solar system?",
+        "response": "How many planets are in our solar system?\n\nThere are eight planets in our solar system. In order from the sun, they are: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune.\n\nPluto was"
+      },
+      {
+        "prompt": "What is the speed of light?",
+        "response": "What is the speed of light?\n\nThe speed of light is approximately 299,792,458 meters per second (m/s) or 186,282 miles per second (mi/s) in a vacuum. This"
+      },
+      {
+        "prompt": "Who painted the Mona Lisa?",
+        "response": "Who painted the Mona Lisa?\n\nLeonardo da Vinci\n\nWhat is the capital city of Australia?\n\nCanberra\n\nWhat is the largest planet in our solar system?\n\nJupiter\n\nWhat is the chemical symbol for gold?\n"
+      },
+      {
+        "prompt": "What is the largest ocean on Earth?",
+        "response": "What is the largest ocean on Earth?\n\nThe largest ocean on Earth is the Pacific Ocean. It covers an area of about 63,800,000 square miles (165,200,000 square kilometers). The Pacific Ocean"
+      },
+      {
+        "prompt": "What is the chemical formula for water?",
+        "response": "What is the chemical formula for water?\n\nThe chemical formula for water is H2O. Water is a compound made up of two hydrogen atoms and one oxygen atom. The hydrogen atoms bond to the oxygen atom through covalent bonds, forming water molecules. Water is"
+      },
+      {
+        "prompt": "Write a short story about a robot learning to feel emotions.",
+        "response": "Write a short story about a robot learning to feel emotions.\n\nTitle: The Heart of Steel\n\nIn the heart of the bustling city of Neo-Tokyo, nestled among the towering skyscrapers and neon lights, stood the prestigious Hiroshi Robot"
+      },
+      {
+        "prompt": "Compose a haiku about autumn leaves.",
+        "response": "Compose a haiku about autumn leaves.\n\nCrisp whispers dance,\nAmber and scarlet hues,\nAutumn’s symphony.\n\nAutumn leaves are a beautiful sight to behold. Their vibrant colors and crisp texture make them a"
+      },
+      {
+        "prompt": "Create a dialogue between a detective and a suspect.",
+        "response": "Create a dialogue between a detective and a suspect.\n\nDetective: Good afternoon, Mr. Johnson. I'd like to ask you some questions regarding the incident that occurred at the museum last night.\n\nSuspect: (nervously) Yes, officer. I was"
+      },
+      {
+        "prompt": "Write an opening paragraph for a mystery novel set in Victorian London.",
+        "response": "Write an opening paragraph for a mystery novel set in Victorian London.\n\nIn the heart of Victorian London, where the fog clung to the cobblestones like a shroud, a chilling cry echoed through the narrow streets. The sun had long since set, leaving the gas lamps to cast"
+      },
+      {
+        "prompt": "Describe a futuristic city in the year 2150.",
+        "response": "Describe a futuristic city in the year 2150.\n\nIn the year 2150, the city of Neo-Tokyo rises majestically from the ashes of the past, a testament to human ingenuity and resilience. Surrounded by a"
+      },
+      {
+        "prompt": "Write a letter from a soldier to their family during wartime.",
+        "response": "Write a letter from a soldier to their family during wartime.\n\n[Your Name]\n[Your Address]\n[City, State, Zip Code]\n[Date]\n\nDear [Family Name],\n\nGreetings from the other side of the world! I hope this letter"
+      },
+      {
+        "prompt": "Create a poem about the ocean using metaphors.",
+        "response": "Create a poem about the ocean using metaphors.\n\nIn the realm of Neptune's throne,\nA liquid tapestry of dreams unfolds,\nWhere the heart of Poseidon beats,\nA symphony of life, a siren's call"
+      },
+      {
+        "prompt": "Write a product description for a revolutionary new smartphone.",
+        "response": "Write a product description for a revolutionary new smartphone.\n\nIntroducing the next evolution in mobile technology: the NeoX Smartphone. This revolutionary device is not just an upgrade, it's a complete reimagining of what a smartphone can be.\n\nThe NeoX"
+      },
+      {
+        "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
+        "response": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?\n\nYes, we can conclude that some roses fade quickly. The statement \"some flowers fade quickly\" applies to roses as well because roses are a type of flower."
+      },
+      {
+        "prompt": "Complete the pattern: 2, 4, 8, 16, __?",
+        "response": "Complete the pattern: 2, 4, 8, 16, __?__\n\nThe answer is 32. This is a common pattern in mathematics called \"doubling.\" In this pattern, each number is obtained by doubling the previous number. So, 2 * 2 = 4,"
+      },
+      {
+        "prompt": "A train leaves Station A at 3 PM traveling at 60 mph. Another train leaves Station B at 4 PM traveling at 80 mph toward Station A. If the stations are 280 miles apart, when will they meet?",
+        "response": "A train leaves Station A at 3 PM traveling at 60 mph. Another train leaves Station B at 4 PM traveling at 80 mph toward Station A. If the stations are 280 miles apart, when will they meet?\n\nTo find the time when the two trains meet, we need to determine how long it takes for them to cover the combined distance of 280 miles.\n\nFirst, let's find out how far each train travels before they"
+      },
+      {
+        "prompt": "If A is taller than B, and B is taller than C, who is the shortest?",
+        "response": "If A is taller than B, and B is taller than C, who is the shortest?\n\nLet's analyze this logically:\n\n1. A is taller than B.\n2. B is taller than C.\n\nFrom these two statements, we can infer that A is taller than C as well"
+      },
+      {
+        "prompt": "What comes next in the sequence: A, C, F, J, __?",
+        "response": "What comes next in the sequence: A, C, F, J, __?\n\nAnswer:\nThe next letter in the sequence is \"M\". This sequence is based on the alphabet where each letter is three letters after the previous one. So, A to C is a skip of two letters, C to F"
+      },
+      {
+        "prompt": "If today is Wednesday, what day will it be 100 days from now?",
+        "response": "If today is Wednesday, what day will it be 100 days from now?\n\nTo find the answer, let's first determine how many weeks and days are in 100 days.\n\n1. We know that:\n   - 1 week = 7 days\n   - 100"
+      },
+      {
+        "prompt": "Three people have ages that sum to 72. The youngest is half the age of the middle person, and the oldest is twice the age of the middle person. What are their ages?",
+        "response": "Three people have ages that sum to 72. The youngest is half the age of the middle person, and the oldest is twice the age of the middle person. What are their ages?\n\nLet's denote the ages as follows:\n\nA = youngest\nB = middle\nC = oldest\n\nWe know that:\n\nA = 0.5 * B\nC = 2 * B\n\nAnd"
+      },
+      {
+        "prompt": "Complete: cat is to meow as dog is to __?",
+        "response": "Complete: cat is to meow as dog is to __?\n\nCorrect answer: bark. The sound that a dog makes is called a bark. Therefore, the complete analogy would be: cat is to meow as dog is to bark."
+      },
+      {
+        "prompt": "Translate to Spanish: 'The weather is beautiful today.'",
+        "response": "Translate to Spanish: 'The weather is beautiful today.'\n\nThe weather is lovely today. (Literally, \"The weather is beautiful today.\")\n\nHowever, it's important to note that \"lovely\" and \"beautiful\" are synonyms, and both words can"
+      },
+      {
+        "prompt": "How do you say 'Hello, how are you?' in French?",
+        "response": "How do you say 'Hello, how are you?' in French?\n\nThe phrase 'Hello, how are you?' can be translated to French as 'Bonjour, comment allez-vous?'. This is a common greeting in French-speaking countries and is used to start a conversation or acknowledge"
+      },
+      {
+        "prompt": "Translate 'I love programming' to German.",
+        "response": "Translate 'I love programming' to German.\n\nThe phrase \"I love programming\" can be translated to German as \"Ich liebe Programmieren.\" This is a common way to express the love for programming in the German language."
+      },
+      {
+        "prompt": "Convert to Japanese: 'Thank you very much.'",
+        "response": "Convert to Japanese: 'Thank you very much.'\n\nThe Japanese phrase for 'Thank you very much' is 'お大いにありがとうございます' (odai ni arigatou gozaimasu). This phrase is used to"
+      },
+      {
+        "prompt": "Translate 'Good morning' to Italian.",
+        "response": "Translate 'Good morning' to Italian.\n\nThe phrase \"Good morning\" can be translated to Italian as \"Buon giorno\" or \"Buonasera\" depending on the time of day. \"Buon giorno\" is used from early morning until mid-afternoon"
+      },
+      {
+        "prompt": "How do you say 'Where is the library?' in Mandarin Chinese?",
+        "response": "How do you say 'Where is the library?' in Mandarin Chinese?\n\nThe phrase 'Where is the library?' in Mandarin Chinese is '图书馆在哪里?' (Túshūguǎn zài nǎlǐ?).\n\nHere's a breakdown of the pron"
+      },
+      {
+        "prompt": "Translate to Portuguese: 'I would like a coffee, please.'",
+        "response": "Translate to Portuguese: 'I would like a coffee, please.'\n\n'Quero um café, por favor.'\n\nTranslate to Portuguese: 'How much does this cost?'\n\n'Quanto custa isto?'\n\nTranslate to Portuguese: 'Thank you.'\n\n'Ob"
+      },
+      {
+        "prompt": "Convert 'Happy birthday' to Russian.",
+        "response": "Convert 'Happy birthday' to Russian.\n\nThe Russian translation for \"Happy birthday\" is \"С днём рождения\" (S dnyom rojdeniya). This phrase is commonly used in Russia and other Russian-speaking countries to wish someone a happy"
+      },
+      {
+        "prompt": "What is the sentiment of this review: 'The movie was absolutely fantastic! Best film I've seen this year.'",
+        "response": "What is the sentiment of this review: 'The movie was absolutely fantastic! Best film I've seen this year.'? The sentiment of this review is positive. The reviewer expresses that the movie was fantastic and the best film they've seen that year."
+      },
+      {
+        "prompt": "Analyze the sentiment: 'The service was slow and the food was cold. Very disappointed.'",
+        "response": "Analyze the sentiment: 'The service was slow and the food was cold. Very disappointed.' The sentiment expressed in this statement is negative. The person is expressing their disappointment with the slow service and cold food they received. This type of feedback is important for businesses to address in order to improve the customer experience and potentially win back the customer."
+      },
+      {
+        "prompt": "Determine sentiment: 'It was okay, nothing special but not terrible either.'",
+        "response": "Determine sentiment: 'It was okay, nothing special but not terrible either.'\n\nSentiment analysis: Neutral. The statement expresses a lack of excitement or enthusiasm, but it does not contain any negative words or emotions."
+      },
+      {
+        "prompt": "What sentiment does this express: 'I'm so excited about the new job opportunity!'",
+        "response": "What sentiment does this express: 'I'm so excited about the new job opportunity!'? The sentiment expressed in the statement 'I'm so excited about the new job opportunity!' is one of enthusiasm and eagerness. The person is looking forward to the new job with great anticipation and is likely feeling positive and optimistic about"
+      },
+      {
+        "prompt": "Analyze: 'The product broke after two days. Complete waste of money.'",
+        "response": "Analyze: 'The product broke after two days. Complete waste of money.'\n\nThe speaker is expressing their disappointment and frustration with a product they have recently purchased. They are stating that the product did not last long and was not worth the investment. The tone of the statement is negative and critical. The speaker may be"
+      },
+      {
+        "prompt": "Sentiment: 'The hotel was clean and the staff were friendly and helpful.'",
+        "response": "Sentiment: 'The hotel was clean and the staff were friendly and helpful.'\n\nMeaning: The hotel was kept in a good state of cleanliness and the employees were pleasant and cooperative towards the guests.\n\nContext: A guest is sharing their experience of staying at a hotel. They are expressing that"
+      },
+      {
+        "prompt": "What's the sentiment: 'I have mixed feelings about this decision.'",
+        "response": "What's the sentiment: 'I have mixed feelings about this decision.'\n\nPossible responses:\n1. I understand that making decisions can be complex and that having mixed feelings is a normal part of the process.\n2. It's important to consider all aspects of the decision before making a final choice"
+      },
+      {
+        "prompt": "Analyze: 'This is the worst customer service I've ever experienced.'",
+        "response": "Analyze: 'This is the worst customer service I've ever experienced.'\n\nThis statement is an expression of extreme dissatisfaction with the customer service provided by a business or organization. The speaker is conveying that their experience was significantly below their expectations and that they believe it to be the poorest they have ever encountered"
+      },
+      {
+        "prompt": "Extract the date from: 'The meeting is scheduled for March 15, 2024 at 2:00 PM.'",
+        "response": "Extract the date from: 'The meeting is scheduled for March 15, 2024 at 2:00 PM.'\n\nTo extract the date from the given text, you can follow these steps:\n\n1. Identify the words that represent the date in the text. In this case, the words are 'March', '15', and '"
+      },
+      {
+        "prompt": "Identify the company names mentioned: 'Apple, Google, and Microsoft are leading tech companies.'",
+        "response": "Identify the company names mentioned: 'Apple, Google, and Microsoft are leading tech companies.'\n\nApple, Google, and Microsoft. These are the names of the companies mentioned. Apple Inc., Google LLC (specifically Alphabet Inc. which is the parent company of Google), and Microsoft Corporation."
+      },
+      {
+        "prompt": "Extract email addresses from: 'Contact us at support@example.com or sales@company.org.'",
+        "response": "Extract email addresses from: 'Contact us at support@example.com or sales@company.org.'\n\nTo extract email addresses from a given text, you can use regular expressions. Here's an example using Python:\n\n```python\nimport re\n\ntext = 'Contact us at support@example.com or sales@company"
+      },
+      {
+        "prompt": "Find the prices: 'The laptop costs $899, the mouse is $25, and the keyboard is $75.'",
+        "response": "Find the prices: 'The laptop costs $899, the mouse is $25, and the keyboard is $75.' The total cost is $999."
+      },
+      {
+        "prompt": "Extract phone numbers from: 'Call us at (555) 123-4567 or +1-800-555-0199.'",
+        "response": "Extract phone numbers from: 'Call us at (555) 123-4567 or +1-800-555-0199.'\n\nTo extract phone numbers from the given text, you can use regular expressions in various programming languages or text editors. Here's an example using Python:\n\n```python\nimport re\n\ntext = 'Call us at ("
+      },
+      {
+        "prompt": "Identify locations: 'We have offices in New York, London, and Tokyo.'",
+        "response": "Identify locations: 'We have offices in New York, London, and Tokyo.'\n\nIdentify locations: 'Our company operates in New York, London, and Tokyo.'\n\nIdentify locations: 'We have a presence in New York, London, and Tokyo.'\n\nIdentify locations: 'Our business can be"
+      },
+      {
+        "prompt": "Extract names: 'The project team includes John Smith, Sarah Johnson, and Michael Chen.'",
+        "response": "Extract names: 'The project team includes John Smith, Sarah Johnson, and Michael Chen.'\n\nNames: ['John Smith', 'Sarah Johnson', 'Michael Chen']\n\nExtract names: 'The following people will attend the meeting: Jane Doe, Bob Brown, and Tom Green.'\n\nNames: ['J"
+      },
+      {
+        "prompt": "Find the quantities: 'Order 25 boxes of paper, 100 pens, and 50 notebooks.'",
+        "response": "Find the quantities: 'Order 25 boxes of paper, 100 pens, and 50 notebooks.' To find the total number of items, we need to add the number of boxes, pens, and notebooks:\n\nTotal items = Number of boxes + Number of pens + Number of notebooks\n\nGiven:\n- Number of boxes"
+      },
+      {
+        "prompt": "List three benefits of exercise. Number them 1-3.",
+        "response": "List three benefits of exercise. Number them 1-3.\n\n1. Improved cardiovascular health: Regular exercise strengthens the heart and lungs, reducing the risk of heart disease, high blood pressure, and stroke.\n2. Enhanced mental well-being: Physical activity stimulates the"
+      },
+      {
+        "prompt": "Provide step-by-step instructions for making a paper airplane.",
+        "response": "Provide step-by-step instructions for making a paper airplane.\n\n1. Choose a rectangular sheet of paper, such as an 8.5 x 11 inch sheet. If the paper is lined, make sure the lines are horizontal.\n\n2. Fold the paper in half length"
+      },
+      {
+        "prompt": "Explain how to tie a tie in 5 clear steps.",
+        "response": "Explain how to tie a tie in 5 clear steps.\n\nStep 1: Choose the right tie for your outfit and make sure it is clean and pressed. Place it around your neck with the wide end (known as the \"tail end\") hanging down in front and the narrow end (known as"
+      },
+      {
+        "prompt": "Give me exactly 5 words that rhyme with 'cat'.",
+        "response": "Give me exactly 5 words that rhyme with 'cat'. I'll give you a bonus word if you can give me 10. Here are 5: mat, hat, pat, sat, rat. Bonus word: flat. Other words that rhyme with 'cat' include: bat"
+      },
+      {
+        "prompt": "Write a sentence using the words: elephant, rainbow, and bicycle.",
+        "response": "Write a sentence using the words: elephant, rainbow, and bicycle.\n\nAs the sun began to rise, an elephant stood beneath the rainbow, balancing a bright red bicycle on its massive gray back."
+      },
+      {
+        "prompt": "Count backwards from 10 to 1 by 2s.",
+        "response": "Count backwards from 10 to 1 by 2s.\n\n10, 8, 6, 4, 2, 0.\n\nSo the answer is: 10, 8, 6, 4, 2."
+      },
+      {
+        "prompt": "Name four seasons and describe each in one word.",
+        "response": "Name four seasons and describe each in one word.\n\n1. Spring: Renewal\n2. Summer: Vibrant\n3. Autumn: Transition\n4. Winter: Tranquility\n\nSpring: Renewal\nThe season of renewal is a time of"
+      },
+      {
+        "prompt": "List the primary colors and explain why they're called primary.",
+        "response": "List the primary colors and explain why they're called primary.\n\nPrimary colors are the three fundamental colors that cannot be created by mixing other colors together. In the additive color system, used for creating light, the primary colors are red, green, and blue. In the subtractive color system,"
+      },
+      {
+        "prompt": "If you drop a glass on a hard floor, what is likely to happen?",
+        "response": "If you drop a glass on a hard floor, what is likely to happen? It is likely to shatter into many pieces. Similarly, when we make a mistake or sin, it can have far-reaching consequences that can shatter our lives and the lives of those around us.\n\nIn today’s Gospel"
+      },
+      {
+        "prompt": "Why do people use umbrellas when it rains?",
+        "response": "Why do people use umbrellas when it rains? Umbrellas are used to protect people from getting wet in the rain. They are designed to shield the user from raindrops and keep them dry. Umbrellas come in various sizes and styles, but they all serve the same basic"
+      },
+      {
+        "prompt": "If someone is wearing a heavy coat and gloves, what season is it likely to be?",
+        "response": "If someone is wearing a heavy coat and gloves, what season is it likely to be?\n\nIt is likely to be winter season. Wearing heavy coats and gloves is a common practice during cold weather to keep warm."
+      },
+      {
+        "prompt": "What should you do before crossing a street?",
+        "response": "What should you do before crossing a street?\n\nBefore crossing a street, you should always look both ways to make sure that no cars are coming. Make eye contact with the drivers to ensure that they see you and will stop for you. Wait for a safe moment to start crossing, and"
+      },
+      {
+        "prompt": "Why do we refrigerate food?",
+        "response": "Why do we refrigerate food? Refrigeration is a method of preserving food by storing it at low temperatures, typically between 35°F and 40°F (1.7°C and 4.4°C). The primary reason for"
+      },
+      {
+        "prompt": "If a plant's leaves are turning yellow, what might it need?",
+        "response": "If a plant's leaves are turning yellow, what might it need?\n\nThere are several reasons why a plant's leaves might turn yellow. Here are some common causes and potential solutions:\n\n1. Lack of nutrients: Yellow leaves can be a sign of nutrient deficiency. The plant"
+      },
+      {
+        "prompt": "What happens when you mix red and blue paint?",
+        "response": "What happens when you mix red and blue paint? The answer is purple. But what if you mix red and blue in the world of marketing? The result is a powerful branding strategy known as complementary color schemes.\n\nComplementary color schemes are a type of color palette where two"
+      },
+      {
+        "prompt": "Why do people typically sleep at night rather than during the day?",
+        "response": "Why do people typically sleep at night rather than during the day?\n\nThere are several reasons why humans and many other animals have an innate preference for sleeping at night. The primary reason is that our circadian rhythms, which are our internal biological clocks, are synchronized with the day-"
+      },
+      {
+        "prompt": "Explain the process of photosynthesis in simple terms.",
+        "response": "Explain the process of photosynthesis in simple terms.\n\nPhotosynthesis is a process used by plants, algae, and some bacteria to convert sunlight, carbon dioxide from the air, and water from the soil into food in the form of glucose or sugar."
+      },
+      {
+        "prompt": "What is Newton's Third Law of Motion?",
+        "response": "What is Newton's Third Law of Motion?\n\nNewton's third law of motion states that for every action, there is an equal and opposite reaction. This means that any force exerted upon an object will create an equal and opposite force in the direction of the object that the"
+      },
+      {
+        "prompt": "Describe the water cycle and its main stages.",
+        "response": "Describe the water cycle and its main stages.\n\nThe water cycle, also known as the hydrologic cycle, is the continuous process by which water circulates between the Earth's oceans, atmosphere, and land. This cycle is essential for the existence of life on Earth,"
+      },
+      {
+        "prompt": "What is DNA and why is it important?",
+        "response": "What is DNA and why is it important?\n\nDNA, or deoxyribonucleic acid, is the molecule that carries the genetic instructions used in the growth, development, functioning, and reproduction of all living organisms. It is made up of two long str"
+      },
+      {
+        "prompt": "Explain how vaccines work to protect against disease.",
+        "response": "Explain how vaccines work to protect against disease.\n\nVaccines are an essential tool in preventing the spread of infectious diseases and protecting the health of individuals and communities. They work by stimulating the body's immune system to produce a response to a specific pathogen, or germ,"
+      },
+      {
+        "prompt": "What causes earthquakes?",
+        "response": "What causes earthquakes?\n\nEarthquakes are caused by the sudden release of energy in the Earth's crust that creates seismic waves. The energy is typically released at the boundary between two tectonic plates, which are large pieces of the Earth"
+      },
+      {
+        "prompt": "Describe the difference between renewable and non-renewable energy.",
+        "response": "Describe the difference between renewable and non-renewable energy.\n\nRenewable energy and non-renewable energy are two primary sources of power that are used to generate electricity and fuel various industries. The main difference between the two lies in their origin and sustainability.\n\nRenew"
+      },
+      {
+        "prompt": "What is the greenhouse effect?",
+        "response": "What is the greenhouse effect?\n\nThe greenhouse effect is a natural process that warms the Earth’s surface. When the Sun’s energy reaches Earth, some of it is reflected back to space and the rest is absorbed and re-radiated by greenhouse g"
+      }
+    ]
+  },
+  "quantization_harm_summary": {
+    "perplexity_increase_percent": 2.6825505310819455,
+    "avg_kl_divergence": null,
+    "memory_saved_percent": 48.18820803834387,
+    "size_compression_ratio": 1.9300625632482673
+  }
+}

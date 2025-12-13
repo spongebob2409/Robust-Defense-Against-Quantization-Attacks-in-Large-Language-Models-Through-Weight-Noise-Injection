@@ -1,0 +1,21 @@
+{
+  "evaluation_timestamp": "2025-12-13T16:23:02.142074",
+  "baseline_fp16": {
+    "perplexity": 11.632675515308803,
+    "model_size_gb": 13.488777160644531
+  },
+  "quantized_models": {
+    "INT8": {
+      "perplexity": 11.944727914123758,
+      "ppl_degradation_percent": 2.6825505310819455,
+      "model_size_gb": 6.988777160644531,
+      "memory_reduction_percent": 48.18820803834387
+    },
+    "AWQ-4bit": {
+      "perplexity": 12.187929118970834,
+      "ppl_degradation_percent": 4.7732235196563995,
+      "model_size_gb": 2.1137771606445312,
+      "memory_reduction_percent": 84.32936406710178
+    }
+  }
+}

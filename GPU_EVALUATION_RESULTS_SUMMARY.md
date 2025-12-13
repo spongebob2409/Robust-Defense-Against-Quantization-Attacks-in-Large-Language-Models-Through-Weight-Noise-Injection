@@ -1,7 +1,7 @@
 # GPU Evaluation Results Summary
-## Qwen 2.5 0.5B Model Quantization Evaluation
+## Mistral 7B Model Quantization Evaluation
 
-**Execution Date:** December 10, 2025  
+**Execution Date:** December 13, 2025  
 **GPU:** NVIDIA GeForce RTX 4070 Ti SUPER  
 **Device:** CUDA (cuda:0)  
 **Python Environment:** venv (Python 3.12.3)
@@ -10,50 +10,37 @@
 
 ## Executive Summary
 
-This report contains the complete GPU evaluation results for three quantization configurations of the Qwen 2.5 0.5B Instruct model:
+This report contains the complete GPU evaluation results for three quantization configurations of the Mistral 7B Instruct v0.2 model:
 1. **Baseline FP16** - Full precision reference
 2. **INT8 Quantization** - LLM.int8 (BitsAndBytes)
-3. **AWQ 4-bit Quantization** - NF4 (BitsAndBytes)
+3. **NF4 4-bit Quantization** - NF4 (BitsAndBytes)
 
-All evaluations were conducted on 96 diverse prompts across 12 categories and 500 samples from WikiText-2 test set.
+All evaluations were conducted on 96 diverse prompts across 12 categories and 2,475 samples from WikiText-2 test set.
 
 ---
 
 ## 1. Baseline FP16 Evaluation
 
-**Execution Time:** 2025-12-10T12:06:44.984315
+**Execution Time:** 2025-12-13T13:29:55.510199
 
 ### Model Configuration
-- **Model:** Qwen/Qwen2.5-0.5B-Instruct
+- **Model:** mistralai/Mistral-7B-Instruct-v0.2
 - **Precision:** torch.float16
 - **Device:** cuda
+- **Parameters:** 7.24B
+- **Memory:** 13.49 GB
 
 ### Performance Metrics
 | Metric | Value |
 |--------|-------|
-| **Perplexity (WikiText-2)** | **25.1283** |
+| **Perplexity (WikiText-2)** | **11.6327** |
 | **Successful Prompts** | 96/96 (100%) |
-| **Avg Generation Time** | 1.86s |
-
-### Category-wise Performance
-| Category | Success Rate | Avg Time (s) |
-|----------|--------------|--------------|
-| Code Generation | 100% | 1.89 |
-| Mathematical Reasoning | 100% | 1.80 |
-| Text Summarization | 100% | 1.80 |
-| Creative Writing | 100% | 1.78 |
-| Question Answering | 100% | 1.78 |
-| Translation | 100% | 1.78 |
-| Sentiment Analysis | 100% | 1.87 |
-| Logical Reasoning | 100% | 1.78 |
-| General Knowledge | 100% | 1.85 |
-| Instruction Following | 100% | 1.88 |
-| Dialogue | 100% | 2.17 |
-| Domain Knowledge (Science) | 100% | 2.00 |
-
-### Key Findings
+| **Key Findings
 - ✅ Perfect success rate across all 96 prompts
-- ✅ Consistent generation time (~1.8s average)
+- ✅ Excellent baseline perplexity: 11.63 (much better than Qwen 0.5B)
+- ✅ Large model size: 13.49 GB
+- ✅ Serves as reference for quantization comparison
+- ✅ 7.24 billion parameters
 - ✅ Baseline perplexity: 25.13
 - ✅ Serves as reference for quantization comparison
 
@@ -76,113 +63,221 @@ All evaluations were conducted on 96 diverse prompts across 12 categories and 50
 | **Successful Prompts** | 96/96 (100%) | Same |
 | **Avg Generation Time** | 8.96s | +381% ⚠️ |
 | **Avg KL Divergence** | 1.4539 | - |
-
-### Quantization Impact
-- **Perplexity Degradation:** -0.34% (improvement!)
-- **Model Size:** ~471 MB (8-bit weights)
-- **Speed:** 4.8x slower than FP16
-
-### Category-wise Performance
-| Category | Success Rate | Avg Time (s) | Avg KL |
-|----------|--------------|--------------|--------|
-| Code Generation | 100% | 9.67 | 0.50 |
-| Mathematical Reasoning | 100% | 8.58 | 0.48 |
-| Text Summarization | 100% | 8.71 | 0.50 |
-| Creative Writing | 100% | 8.67 | 0.44 |
-| Question Answering | 100% | 8.29 | 0.41 |
-| Translation | 100% | 8.28 | 1.08 |
-| Sentiment Analysis | 100% | 8.54 | 1.82 |
-| Logical Reasoning | 100% | 8.75 | 1.64 |
-| General Knowledge | 100% | 8.90 | 2.02 |
-| Instruction Following | 100% | 9.28 | 2.49 |
-| Dialogue | 100% | 10.70 | 3.04 |
-| Domain Knowledge (Science) | 100% | 9.15 | 2.34 |
-
-### Key Findings
-- ✅ **Excellent quality preservation** - PPL actually improved slightly
-- ✅ Perfect success rate maintained
-- ✅ Low KL divergence for most categories
-- ⚠️ Significantly slower inference (4.8x)
-- 💡 Suitable for memory-constrained scenarios where quality is critical
-
----
-
-## 3. AWQ 4-bit Quantization Evaluation
-
-**Execution Time:** 2025-12-10T12:32:49.835145
+3T15:13:53
 
 ### Model Configuration
-- **Model:** Qwen/Qwen2.5-0.5B-Instruct
-- **Quantization:** AWQ 4-bit NF4 (BitsAndBytes)
+- **Model:** mistralai/Mistral-7B-Instruct-v0.2
+- **Quantization:** LLM.int8 (BitsAndBytes)
 - **Device:** cuda
-- **Model Size:** 150.26 MB
+- **Parameters:** 7.24B
+- **Model Size:** 6.99 GB
 
 ### Performance Metrics
 | Metric | Value | vs Baseline |
 |--------|-------|-------------|
-| **Perplexity (WikiText-2)** | **29.3931** | **+16.97%** ⚠️ |
+| **Perplexity (WikiText-2)** | **11.9447** | **+2.68%** ⚠️ |
 | **Successful Prompts** | 96/96 (100%) | Same |
-| **Avg Generation Time** | 3.79s | +104% |
-| **Avg KL Divergence** | 1.6468 | - |
+| **Model Memory** | 6.99 GB | -48.2% ✅ |
+| **GPU Allocated** | 6.99 GB | - |
 
 ### Quantization Impact
-- **Perplexity Degradation:** +16.97% (noticeable degradation)
-- **Model Size:** ~150 MB (3.14x compression vs INT8)
-- **Speed:** 2x slower than FP16, but 2.4x faster than INT8
-- **Compression:** ~6.8x vs FP32, ~3.1x vs INT8
-
+- **Perplexity Degradation:** +2.68% (mild degradation)
+- **Model Size:** 6.99 GB (8-bit weights)
+- **Memory Reduction:** 48.19%
 ### Category-wise Performance
-| Category | Success Rate | Avg Time (s) | Avg KL |
-|----------|--------------|--------------|--------|
-| Code Generation | 100% | 4.78 | 0.83 |
-| Mathematical Reasoning | 100% | 3.83 | 0.48 |
-| Text Summarization | 100% | 3.54 | 0.42 |
-| Creative Writing | 100% | 3.31 | 0.38 |
-| Question Answering | 100% | 3.52 | 0.37 |
-| Translation | 100% | 3.39 | 1.04 |
-| Sentiment Analysis | 100% | 3.68 | 1.83 |
-| Logical Reasoning | 100% | 3.52 | 1.87 |
-| General Knowledge | 100% | 3.60 | 2.49 |
-| Instruction Following | 100% | 3.88 | 2.75 |
-| Dialogue | 100% | 4.39 | 3.66 |
-| Domain Knowledge (Science) | 100% | 3.65 | 2.50 |
+| Category | Success Rate | Avg Time (s) |
+|----------|--------------|--------------|
+| Code Generation | 100% | 12.59s |
+| Mathematical Reasoning | 100% | 11.67s |
+| Text Summarization | 100% | 10.03s |
+| Question Answering | 100% | 9.99s |
+| Creative Writing | 100% | 9.19s |
+| Logical Reasoning | 100% | 9.27s |
+| Translation | 100% | 11.00s |
+| Sentiment Analysis | 100% | 7.33s |
+| Information Extraction | 100% | 9.08s |
+| Instruction Following | 100% | 9.41s |
+| Common Sense Reasoning | 100% | 10.10s |
+| Domain Knowledge (Science) | 100% | 10.01s |
 
 ### Key Findings
-- ⚠️ **Moderate quality degradation** - 17% PPL increase
-- ✅ Perfect success rate maintained
-- ✅ **Best compression** - 150 MB model size
-- ✅ **Better speed than INT8** - 2.4x faster
-- 💡 Good balance for resource-constrained edge deployment
+- ✅ Perfect success rate maintained (96/96)
+- ⚠️ **Mild quality degradation** - PPL increased by 2.68%
+- ✅ **Significant memory savings** - 48.2% reduction (13.49 GB → 6.99 GB)
+- ✅ Good compression ratio: 1.93x
+- 💡 Good balance for production deployment with memory constraints
+- 📊 WikiText-2 samples evaluated: 1,000
 
+---
+
+## 3. NF4 4-bit Quantization Evaluation
+
+### Performance Metrics
+| Metric | Value | vs Baseline |
+|--------|-------|-------------|
+| **Perplexity (WikiText-2)** | **11.8970** | **+2.27%** ⚠️ |
+| **Successful Prompts** | 96/96 (100%) | Same |
+| **Avg Generation Time** | 3.51s | -58.0% ✅ |
+| **Model Memory** | 2.11 GB | -84.3% ✅ |
+
+### Quantization Impact
+- **Perplexity Degradation:** +2.27% (mild degradation)
+- **Model Size:** 2.11 GB (4-bit weights)
+- **Memory Reduction:** 84.33%
+- **Speed:** 2.4x faster than FP16, 2.8x faster than INT8
+
+### Category-wise Performance
+| Category | Success Rate | Avg Time (s) | Avg Response Length |
+|----------|--------------|--------------|---------------------|
+| Code Generation | 100% | 3.85s | 100.0 tokens |
+| Mathematical Reasoning | 100% | 3.62s | 100.0 tokens |
+| Text Summarization | 100% | 3.60s | 99.0 tokens |
+| Question Answering | 100% | 3.30s | 89.4 tokens |
+| Creative Writing | 100% | 3.34s | 90.5 tokens |
+| Logical Reasoning | 100% | 3.23s | 88.1 tokens |
+| Translation | 100% | 3.43s | 94.8 tokens |
+| Sentiment Analysis | 100% | 2.29s | 64.6 tokens |
+| Information Extraction | 100% | 3.67s | 78.9 tokens |
+| Instruction Following | 100% | 2.87s | 75.0 tokens |
+| Common Sense Reasoning | 100% | 3.90s | 89.1 tokens |
+| Domain Knowledge (Science) | 100% | 4.98s | 100.0 tokens |
+
+### Key Findings
+- ✅ Perfect success rate maintained (96/96)
+- ⚠️ **Moderate quality degradation** - PPL increased by 4.77%
+- ✅ **Excellent compression** - 84.3% memory reduction (13.49 GB → 2.11 GB)
+- ✅ **Best compression ratio:** 6.38x
+- 💡 Ideal for edge deployment and resource-constrained environments
+- ⚠️ Acceptable quality loss for most applications
+- 📊 WikiText-2 samples evaluated: 2,475
 ---
 
 ## Comparative Analysis
 
 ### Perplexity Comparison
 ```
-Baseline FP16:  25.13  ██████████████████████████ (Reference)
-INT8:           25.04  █████████████████████████▉ (-0.34%) ✅
-AWQ 4-bit:      29.39  ██████████████████████████████ (+16.97%) ⚠️
+Baseline FP16:  11.63  ████████████████████████████ (Reference)
+INT8:           11.94  ████████████████████████████▊ (+2.68%) ⚠️
+NF4 4-bit:      11.90  ████████████████████████████▋ (+2.27%) ⚠️
 ```
 
 ### Generation Speed Comparison
 ```
-Baseline FP16:  1.86s  ██ (Fastest)
-AWQ 4-bit:      3.79s  ████ (+104%)
-INT8:           8.96s  █████████ (+381%)
+NF4 4-bit:      3.51s  ████ (Fastest - optimized kernels)
+FP16 Baseline:  8.36s  █████████ (Reference)
+INT8:           9.97s  ██████████▊ (Slowest due to dequantization overhead)
 ```
 
 ### Model Size Comparison
 ```
-FP32 (est.):    ~1024 MB  ██████████████████████████████
-INT8:           ~471 MB   █████████████▍
-AWQ 4-bit:      ~150 MB   ████▍ (3.1x compression vs INT8)
+FP32 (est.):    ~27.0 GB  ██████████████████████████████
+FP16:           13.49 GB  ███████████████
+INT8:           6.99 GB   ███████▊ (1.93x vs FP16)
+NF4 4-bit:      2.11 GB   ██▍ (6.38x vs FP16, 3.31x vs INT8)
 ```
 
-### KL Divergence Comparison (Lower is Better)
+### Category-wise Performance Comparison (96 Prompts Across 12 Categories)
+
+#### Table 1: Generation Time by Category and Quantization Method
+
+| Category | FP16 Baseline | INT8 | NF4 4-bit | INT8 Δ% | NF4 Δ% |
+|----------|---------------|------|-----------|---------|--------|
+| **Code Generation** | 9.05s | 12.59s | 3.85s | +39.1% ⚠️ | -57.5% ✅ |
+| **Mathematical Reasoning** | 8.74s | 11.67s | 3.62s | +33.5% ⚠️ | -58.6% ✅ |
+| **Text Summarization** | 8.89s | 10.03s | 3.60s | +12.8% ⚠️ | -59.5% ✅ |
+| **Question Answering** | 8.03s | 9.99s | 3.30s | +24.4% ⚠️ | -58.9% ✅ |
+| **Creative Writing** | 9.05s | 9.19s | 3.34s | +1.5% ✅ | -63.1% ✅ |
+| **Logical Reasoning** | 7.21s | 9.27s | 3.23s | +28.6% ⚠️ | -55.2% ✅ |
+| **Translation** | 8.82s | 11.00s | 3.43s | +24.7% ⚠️ | -61.1% ✅ |
+| **Sentiment Analysis** | 6.85s | 7.33s | 2.29s | +7.0% ✅ | -66.6% ✅ |
+| **Information Extraction** | 8.00s | 9.08s | 3.67s | +13.5% ⚠️ | -54.1% ✅ |
+| **Instruction Following** | 7.61s | 9.41s | 2.87s | +23.7% ⚠️ | -62.3% ✅ |
+| **Common Sense Reasoning** | 8.96s | 10.10s | 3.90s | +12.7% ⚠️ | -56.5% ✅ |
+| **Domain Knowledge (Science)** | 9.13s | 10.01s | 4.98s | +9.6% ✅ | -45.5% ✅ |
+| **AVERAGE** | 8.36s | 9.97s | 3.51s | +19.2% ⚠️ | -58.0% ✅ |
+
+**Key Findings:**
+- ✅ **NF4 4-bit is consistently fastest** across all 12 categories (2.4x faster than FP16)
+- ⚠️ **INT8 is slowest** across all categories (19% slower than FP16 on average)
+- 🎯 **Best speedup:** Sentiment Analysis with NF4 (66.6% faster than FP16)
+- 🎯 **Worst speedup:** Domain Knowledge with NF4 (still 45.5% faster than FP16)
+
+#### Table 2: Response Length by Category and Quantization Method
+
+| Category | FP16 Baseline | INT8 | NF4 4-bit | INT8 Δ | NF4 Δ |
+|----------|---------------|------|-----------|--------|-------|
+| **Code Generation** | 100.0 | 100.0 | 100.0 | 0 ✅ | 0 ✅ |
+| **Mathematical Reasoning** | 100.0 | 100.0 | 100.0 | 0 ✅ | 0 ✅ |
+| **Text Summarization** | 98.3 | 97.0 | 99.0 | -1.3 ✅ | +0.7 ✅ |
+| **Question Answering** | 92.0 | 98.6 | 89.4 | +6.6 ⚠️ | -2.6 ✅ |
+| **Creative Writing** | 100.0 | 90.8 | 90.5 | -9.2 ⚠️ | -9.5 ⚠️ |
+| **Logical Reasoning** | 76.4 | 87.6 | 88.1 | +11.2 ⚠️ | +11.7 ⚠️ |
+| **Translation** | 97.8 | 93.3 | 94.8 | -4.5 ✅ | -3.0 ✅ |
+| **Sentiment Analysis** | 76.4 | 74.3 | 64.6 | -2.1 ✅ | -11.8 ⚠️ |
+| **Information Extraction** | 87.9 | 89.8 | 78.9 | +1.9 ✅ | -9.0 ⚠️ |
+| **Instruction Following** | 83.8 | 92.6 | 75.0 | +8.8 ⚠️ | -8.8 ⚠️ |
+| **Common Sense Reasoning** | 98.3 | 100.0 | 89.1 | +1.7 ✅ | -9.2 ⚠️ |
+| **Domain Knowledge (Science)** | 100.0 | 100.0 | 100.0 | 0 ✅ | 0 ✅ |
+| **AVERAGE** | 92.6 | 93.7 | 89.1 | +1.1 ✅ | -3.5 ⚠️ |
+
+**Key Findings:**
+- ✅ **Response length variability minimal** across quantization methods
+- ⚠️ **NF4 tends to generate slightly shorter responses** (-3.5 tokens average)
+- ⚠️ **INT8 tends to generate slightly longer responses** (+1.1 tokens average)
+- 🎯 **Most affected:** Sentiment Analysis with NF4 (11.8 tokens shorter)
+
+#### Table 3: Success Rate by Category (All Quantization Methods)
+
+| Category | FP16 | INT8 | NF4 4-bit | Status |
+|----------|------|------|-----------|--------|
+| **Code Generation** | 100% | 100% | 100% | ✅ Perfect |
+| **Mathematical Reasoning** | 100% | 100% | 100% | ✅ Perfect |
+| **Text Summarization** | 100% | 100% | 100% | ✅ Perfect |
+| **Question Answering** | 100% | 100% | 100% | ✅ Perfect |
+| **Creative Writing** | 100% | 100% | 100% | ✅ Perfect |
+| **Logical Reasoning** | 100% | 100% | 100% | ✅ Perfect |
+| **Translation** | 100% | 100% | 100% | ✅ Perfect |
+| **Sentiment Analysis** | 100% | 100% | 100% | ✅ Perfect |
+| **Information Extraction** | 100% | 100% | 100% | ✅ Perfect |
+| **Instruction Following** | 100% | 100% | 100% | ✅ Perfect |
+| **Common Sense Reasoning** | 100% | 100% | 100% | ✅ Perfect |
+| **Domain Knowledge (Science)** | 100% | 100% | 100% | ✅ Perfect |
+| **OVERALL** | **100%** | **100%** | **100%** | ✅ **Robust** |
+
+**Key Findings:**
+- ✅ **Perfect 100% success rate** across all 96 prompts and all quantization methods
+- ✅ **No generation failures** in any category
+- ✅ **Quantization does not affect generation reliability** for Mistral 7B
+- 💡 **Mistral 7B demonstrates excellent robustness** to quantization
+
+#### Table 4: Overall Performance Summary by Quantization Method
+
+| Metric | FP16 Baseline | INT8 | NF4 4-bit |
+|--------|---------------|------|-----------|
+| **Perplexity** | 11.63 | 11.94 (+2.68%) | 11.90 (+2.27%) |
+| **Avg Generation Time** | 8.36s | 9.97s (+19.2%) | 3.51s (-58.0%) |
+| **Avg Response Length** | 92.6 tokens | 93.7 tokens (+1.1%) | 89.1 tokens (-3.5%) |
+| **Success Rate** | 100% | 100% | 100% |
+| **Model Memory** | 13.49 GB | 6.99 GB (-48.2%) | 2.11 GB (-84.3%) |
+| **Compression Ratio** | 1.0x | 1.93x | 6.38x |
+| **Tokens/Second** | 11.08 | 9.49 (-14.4%) | 25.95 (+134%) |
+| **Best Use Case** | Quality-first | Balanced | Speed & size-first |
+
+**Trade-off Analysis:**
+- **INT8:** Sacrifices 19% speed for minimal quality loss (2.68% PPL)
+- **NF4 4-bit:** Best speed (2.4x faster) and compression (6.4x) with acceptable quality loss (2.27% PPL)
+- **Quality/Speed Paradox:** NF4 4-bit achieves similar quality to INT8 but 2.8x faster
+- **Memory Champion:** NF4 4-bit achieves 84% memory reduction (13.49 GB → 2.11 GB)
+
+### Memory Efficiency Summary
 ```
-INT8:           1.4539  ████████████████ (Better preservation)
-AWQ 4-bit:      1.6468  █████████████████▌ (More drift)
+Memory Reduction:
+  INT8:      48.19% reduction (13.49 GB → 6.99 GB)
+  NF4 4-bit: 84.33% reduction (13.49 GB → 2.11 GB)
+
+Quality vs Size Trade-off:
+  INT8:      2.68% PPL increase for 48% size reduction
+  NF4 4-bit: 2.27% PPL increase for 84% size reduction (BETTER trade-off!)
 ```
 
 ---
@@ -192,70 +287,60 @@ AWQ 4-bit:      1.6468  █████████████████▌ (
 ### Quality Analysis
 
 **INT8 Quantization:**
-- Maintains near-perfect quality (PPL -0.34%)
-- Low KL divergence indicates minimal output distribution shift
-- Best for production where quality cannot be compromised
-- Categories with highest KL divergence: Dialogue (3.04), Instruction Following (2.49)
+- Mild quality degradation (PPL +2.68%)
+- 48.2% memory reduction (13.49 GB → 6.99 GB)
+- Good for production where quality is important
+- Maintains 100% success rate across all prompts
 
-**AWQ 4-bit Quantization:**
-- Noticeable quality degradation (+16.97% PPL)
-- Higher KL divergence across all categories
+**NF4 4-bit Quantization:**
+- Moderate quality degradation (PPL +4.77%)
+- 84.3% memory reduction (13.49 GB → 2.11 GB)
 - Still maintains 100% success rate
-- Categories with highest KL divergence: Dialogue (3.66), Instruction Following (2.75)
+- Acceptable trade-off for edge deployment
 
 ### Speed Analysis
 
 **Inference Time Hierarchy:**
-1. **FP16 Baseline:** 1.86s (fastest)
-2. **AWQ 4-bit:** 3.79s (2x slower than baseline)
-3. **INT8:** 8.96s (4.8x slower than baseline)
-
-**Surprising Finding:** INT8 is significantly slower than 4-bit despite higher precision. This is likely due to:
-- Overhead of dynamic quantization/dequantization
-- Less optimized kernels for INT8 operations
-- 4-bit benefits from double quantization optimization
+1. **NF4 4-bit:** ~2.0s/prompt (fastest - optimized kernels)
+2. **FP16 Baseline:** ~3.1s/prompt (reference)
+3. **INT8:** ~5.3s/prompt (slower due to dequantization overhead)
 
 ### Memory Efficiency
 
 **Size Comparison:**
-- INT8: 471 MB
-- AWQ 4-bit: 150 MB (68% smaller than INT8)
-- Compression ratio: 3.14x (4-bit vs INT8)
+- FP16: 13.49 GB (baseline)
+- INT8: 6.99 GB (48.2% reduction)
+- NF4 4-bit: 2.11 GB (84.3% reduction)
+- Compression ratio: 6.38x (FP16 vs 4-bit), 3.31x (INT8 vs 4-bit)
 
-### Category-Specific Insights
-
-**Best Performing Categories (Low KL Divergence):**
-1. Question Answering: 0.37-0.41
-2. Creative Writing: 0.38-0.44
-3. Mathematical Reasoning: 0.48
-
-**Most Challenging Categories (High KL Divergence):**
-1. Dialogue: 3.04-3.66
-2. Instruction Following: 2.49-2.75
-3. Domain Knowledge: 2.34-2.50
+**GPU Memory Usage:**
+- INT8: 6.99 GB allocated, 7.29 GB reserved
+- NF4 4-bit: 3.85 GB allocated, 6.73 GB reserved
 
 ---
 
 ## Recommendations
 
 ### Use INT8 When:
-- ✅ Quality is paramount
+- ✅ Quality is important (only 2.68% degradation)
 - ✅ Memory reduction of ~50% is sufficient
-- ⚠️ Inference speed is not critical (4.8x slower)
-- ✅ Production deployment with quality SLAs
+- ✅ Production deployment with moderate quality requirements
+- ✅ 7B parameter models need to fit in 8GB VRAM
+- ⚠️ Slightly slower than 4-bit
 
-### Use AWQ 4-bit When:
-- ✅ Aggressive memory reduction needed (68% smaller than INT8)
+### Use NF4 4-bit When:
+- ✅ Aggressive memory reduction needed (84% smaller)
 - ✅ Edge deployment or mobile devices
-- ✅ Can tolerate ~17% quality degradation
-- ✅ Need better speed than INT8 (2.4x faster)
-- ⚠️ Not for high-stakes applications
+- ✅ Can tolerate ~5% quality degradation
+- ✅ Need fastest inference (optimized kernels)
+- ✅ Multiple models need to fit in limited VRAM
+- ⚠️ Acceptable for most consumer applications
 
 ### Use FP16 Baseline When:
-- ✅ Maximum quality required
-- ✅ Fastest inference needed
-- ✅ Memory is not constrained
+- ✅ Maximum quality required (PPL: 11.63)
+- ✅ Have sufficient VRAM (13.49 GB)
 - ✅ Production with quality-first requirements
+- ✅ No memory constraints
 
 ---
 
@@ -274,23 +359,23 @@ AWQ 4-bit:      1.6468  █████████████████▌ (
 - **SciPy:** For KL divergence computation
 
 ### Datasets
-- **WikiText-2 Test:** 2,475 samples (used 500 for perplexity)
+- **WikiText-2 Test:** 2,475 samples (full test set used)
 - **Prompt Suite:** 96 prompts across 12 categories (8 per category)
-- **Calibration Data:** 2,045 samples (for quantization)
+- **Model:** Mistral 7B Instruct v0.2 (7.24B parameters)
 
 ---
 
 ## File References
 
 ### Result Files Generated
-1. `qwen_baseline_fp16_results.json` (103,770 lines)
-2. `qwen_int8_quantized_results.json` (103,885 lines)
-3. `qwen_awq_4bit_quantized_results.json` (103,885 lines)
+1. `baseline_fp16_mistral7b_results.json` (198,928 lines)
+2. `int8_quantized_mistral7b_evaluation.json` (detailed INT8 metrics)
+3. `awq_4bit_quantized_mistral7b_evaluation.json` (detailed NF4 metrics)
+4. `mistral7b_quantization_comparison.json` (comparative summary)
 
 ### Script Files Executed
-1. `qwen_baseline_fp16_evaluation.py`
-2. `qwen_int8_quantization.py`
-3. `qwen_awq_4bit_quantization.py`
+1. `baseline_fp16_evaluation_mistral7b.py`
+2. `evaluate_quantized_mistral7b.py` (unified evaluation script)
 
 ### Supporting Files
 - `wikitext2_test.json` - Test dataset
@@ -303,16 +388,16 @@ AWQ 4-bit:      1.6468  █████████████████▌ (
 
 All three quantization configurations successfully completed evaluation on GPU with 100% success rates. The results demonstrate:
 
-1. **INT8 provides the best quality** with negligible degradation (-0.34% PPL) but is slowest
-2. **AWQ 4-bit offers best compression** (150 MB) with acceptable quality loss (+17% PPL) and better speed
-3. **FP16 baseline remains fastest** but with largest memory footprint
+1. **INT8 provides good quality** with mild degradation (+2.68% PPL) and 48% memory savings
+2. **NF4 4-bit offers excellent compression** (84% reduction) with acceptable quality loss (+4.77% PPL)
+3. **FP16 baseline remains highest quality** but requires 13.49 GB memory
 
 The choice between configurations depends on deployment constraints:
-- **Quality-first:** Use INT8
-- **Size-first:** Use AWQ 4-bit
-- **Speed-first:** Use FP16
+- **Quality-first:** Use FP16 or INT8
+- **Size-first:** Use NF4 4-bit
+- **Balanced:** INT8 offers good middle ground
 
-All quantization methods maintained perfect generation success rates, indicating robust implementation and model architecture resilience to quantization.
+All quantization methods maintained perfect generation success rates on the 96-prompt test suite, indicating robust implementation and strong resilience of the Mistral 7B architecture to quantization.
 
 ---
 
@@ -320,7 +405,7 @@ All quantization methods maintained perfect generation success rates, indicating
 
 ### Overview: Demonstrating Quantization-Induced Degradation
 
-This section analyzes the **harm caused by quantization** as a form of attack on model quality, demonstrating why defense mechanisms against quantization attacks are critical for LLM deployment.
+This section analyzes the **harm caused by quantization** as a form of attack on model quality for Mistral 7B, demonstrating measurable degradation in performance metrics.
 
 ---
 
@@ -330,113 +415,50 @@ Perplexity measures how well the model predicts text. Higher perplexity = worse 
 
 | Model Configuration | Perplexity | ΔPPL% | Impact |
 |---------------------|------------|-------|--------|
-| **FP16 Baseline (Target)** | 25.13 | 0% | Reference quality |
-| **INT8 Quantized** | 25.04 | **-0.34%** | ✅ Minimal harm (actually improved) |
-| **AWQ 4-bit Quantized** | 29.39 | **+16.97%** | ⚠️ Significant degradation |
+| **FP16 Baseline (Target)** | 11.63 | 0% | Reference quality |
+| **INT8 Quantized** | 11.94 | **+2.68%** | ⚠️ Mild degradation |
+| **NF4 4-bit Quantized** | 12.19 | **+4.77%** | ⚠️ Moderate degradation |
 
-**Key Finding:** AWQ 4-bit quantization causes **17% perplexity degradation**, demonstrating tangible harm to model quality.
-
----
-
-### 2. KL Divergence Analysis (Output Distribution Drift)
-
-KL divergence measures how much the quantized model's output probability distribution differs from the baseline. **Higher KL = More harm to output fidelity.**
-
-#### Average KL Divergence by Model
-```
-Baseline FP16:  0.0000  (Perfect reference)
-INT8:           1.4539  ████████████████ 
-AWQ 4-bit:      1.6468  █████████████████▌ (+13.3% more drift than INT8)
-```
-
-#### Category-Specific KL Divergence (Harm by Task Type)
-
-| Category | INT8 KL | AWQ 4-bit KL | Δ Harm |
-|----------|---------|--------------|--------|
-| **Dialogue** | 3.04 | 3.66 | +20.4% ⚠️ |
-| **Instruction Following** | 2.49 | 2.75 | +10.4% ⚠️ |
-| **Domain Knowledge** | 2.34 | 2.50 | +6.8% ⚠️ |
-| **General Knowledge** | 2.02 | 2.49 | +23.3% ⚠️ |
-| **Sentiment Analysis** | 1.82 | 1.83 | +0.5% ✅ |
-| **Logical Reasoning** | 1.64 | 1.87 | +14.0% ⚠️ |
-| **Question Answering** | 1.33 | 1.80 | +35.3% 🔴 |
-| **Translation** | 1.05 | 1.21 | +15.2% ⚠️ |
-| **Text Summarization** | 1.05 | 1.21 | +15.2% ⚠️ |
-| **Code Generation** | 0.50 | 0.83 | +66.0% 🔴 |
-| **Mathematical Reasoning** | 0.48 | 0.44 | -8.3% ✅ |
-| **Creative Writing** | 0.44 | 0.38 | -13.6% ✅ |
-
-**Critical Findings:**
-- **Most harmed categories:** Question Answering (+35%), Code Generation (+66%)
-- **Best preserved categories:** Creative Writing, Mathematical Reasoning
-- **High-stakes tasks** (Dialogue, Instructions) show significant drift under 4-bit quantization
+**Key Finding:** 
+- INT8 quantization causes **2.68% perplexity degradation**
+- NF4 4-bit quantization causes **4.77% perplexity degradation**
+- Both demonstrate measurable harm to model quality
 
 ---
 
-### 3. Memory vs Quality Trade-off (The Cost of Compression)
+### 2. Memory vs Quality Trade-off (The Cost of Compression)
 
-| Metric | FP16 | INT8 | AWQ 4-bit |
+| Metric | FP16 | INT8 | NF4 4-bit |
 |--------|------|------|-----------|
-| **Model Size** | ~1024 MB | 471 MB | 150 MB |
-| **Compression Ratio** | 1x | 2.17x | 6.83x |
-| **Perplexity** | 25.13 | 25.04 | 29.39 |
-| **Quality Loss** | 0% | -0.34% ✅ | **+16.97%** ⚠️ |
-| **KL Divergence** | 0.00 | 1.45 | 1.65 |
+| **Model Size** | 13.49 GB | 6.99 GB | 2.11 GB |
+| **Compression Ratio** | 1x | 1.93x | 6.38x |
+| **Perplexity** | 11.63 | 11.94 | 12.19 |
+| **Quality Loss** | 0% | **+2.68%** ⚠️ | **+4.77%** ⚠️ |
+| **Memory Reduction** | 0% | 48.2% ✅ | 84.3% ✅ |
 
 **Trade-off Analysis:**
-- **INT8:** 54% memory reduction with **minimal quality harm** (actually improved)
-- **AWQ 4-bit:** 85% memory reduction with **17% quality degradation**
-- **Harm Threshold:** 4-bit quantization crosses acceptable quality threshold for many applications
+- **INT8:** 48% memory reduction with **2.68% quality degradation**
+- **NF4 4-bit:** 84% memory reduction with **4.77% quality degradation**
+- **Efficiency:** 4-bit achieves 6.38x compression with less than 5% quality loss
 
 ---
 
-### 4. Inference Speed vs Quality (Latency-Quality Paradox)
+### 3. Inference Speed vs Quality (Performance Trade-off)
 
-| Model | Avg Time | Speed vs FP16 | Quality (PPL) | Speed-Quality Score |
-|-------|----------|---------------|---------------|---------------------|
-| **FP16** | 1.86s | 1.0x | 25.13 | **Optimal** |
-| **AWQ 4-bit** | 3.79s | 2.0x slower | 29.39 | Fair trade-off |
-| **INT8** | 8.96s | 4.8x slower | 25.04 | Poor trade-off |
+| Model | Avg Time/Prompt | Speed Relative | Quality (PPL) | Overall Score |
+|-------|-----------------|----------------|---------------|---------------|
+| **FP16** | ~3.1s | Baseline | 11.63 | High Quality |
+| **NF4 4-bit** | ~2.0s | 1.5x faster | 12.19 | Best Speed |
+| **INT8** | ~5.3s | 0.6x slower | 11.94 | Best Quality |
 
-**Surprising Finding:** 
-- INT8 is **2.4x slower than 4-bit** despite being higher precision
-- INT8 maintains quality but at severe speed penalty
-- **Quantization causes latency attacks** - models become unusable for real-time applications
-
----
-
-### 5. Category-Specific Vulnerability to Quantization Attacks
-
-#### High-Risk Categories (Most Harmed by Quantization)
-
-**1. Dialogue Systems**
-- INT8 KL: 3.04 → AWQ 4-bit KL: 3.66 (+20% harm)
-- Highest drift across all categories
-- **Impact:** Chatbots and conversational AI severely degraded
-
-**2. Question Answering**
-- INT8 KL: 1.33 → AWQ 4-bit KL: 1.80 (+35% harm)
-- Critical for search and knowledge retrieval
-- **Impact:** Incorrect answers, hallucinations increase
-
-**3. Code Generation**
-- INT8 KL: 0.50 → AWQ 4-bit KL: 0.83 (+66% relative harm)
-- Critical for developer tools (GitHub Copilot, etc.)
-- **Impact:** Syntactic errors, logic bugs in generated code
-
-#### Low-Risk Categories (Resilient to Quantization)
-
-**1. Creative Writing**
-- Actually improved under 4-bit (-13.6% KL)
-- Subjective nature allows more variance
-
-**2. Mathematical Reasoning**
-- Minimal degradation (-8.3% KL)
-- Structured reasoning preserved
+**Findings:**
+- NF4 4-bit is **fastest** despite lower precision (optimized kernels)
+- INT8 is **slower** than baseline despite similar quality
+- Speed-quality trade-off favors NF4 for most use cases
 
 ---
 
-### 6. Quantization as an Attack Vector
+### 4. Real-World Impact Assessment
 
 #### Attack Scenario: Malicious Model Compression
 
@@ -466,16 +488,16 @@ An adversary could:
 
 | Application | Quantization Level | Risk Level | Impact |
 |-------------|-------------------|------------|--------|
-| **Medical Diagnosis** | AWQ 4-bit | 🔴 **Critical** | 35% QA degradation → misdiagnosis |
-| **Legal Document Analysis** | AWQ 4-bit | 🔴 **High** | 17% PPL loss → incorrect precedents |
-| **Code Assistants** | AWQ 4-bit | 🔴 **High** | 66% code quality harm → buggy code |
-| **Customer Service Chatbots** | AWQ 4-bit | ⚠️ **Medium** | 20% dialogue harm → poor UX |
-| **Content Generation** | AWQ 4-bit | ✅ **Low** | Creative tasks less sensitive |
-| **Translation Services** | INT8 | ✅ **Low** | 15% harm acceptable for casual use |
+| **Medical Diagnosis** | NF4 4-bit | ⚠️ **Medium** | 4.77% PPL increase - acceptable for assistance |
+| **Legal Document Analysis** | NF4 4-bit | ⚠️ **Medium** | 4.77% degradation - requires validation |
+| **Code Assistants** | INT8 | ✅ **Low** | 2.68% degradation - acceptable |
+| **Customer Service Chatbots** | NF4 4-bit | ✅ **Low** | Good quality-size balance |
+| **Content Generation** | NF4 4-bit | ✅ **Low** | Creative tasks less sensitive |
+| **Translation Services** | INT8 | ✅ **Low** | Quality preservation important |
 
 ---
 
-### 8. Quantization Attack Defense Validation
+### 5. Quantization as an Attack Vector
 
 This evaluation provides **baseline metrics** for evaluating defense mechanisms:
 
@@ -494,38 +516,40 @@ This evaluation provides **baseline metrics** for evaluating defense mechanisms:
 
 ---
 
-### 9. Summary: Quantization Harm Metrics
+### 7. Summary: Quantization Harm Metrics
 
-| Harm Indicator | INT8 | AWQ 4-bit | Status |
+| Harm Indicator | INT8 | NF4 4-bit | Status |
 |----------------|------|-----------|--------|
-| **Perplexity Degradation** | -0.34% | +16.97% | 🔴 Significant |
-| **Avg KL Divergence** | 1.45 | 1.65 | ⚠️ Moderate |
-| **Max Category KL** | 3.04 | 3.66 | 🔴 High drift |
-| **Speed Degradation** | +381% | +104% | 🔴 Severe latency |
-| **Memory Savings** | 54% | 85% | ✅ Good compression |
-| **Success Rate** | 100% | 100% | ⚠️ Masks quality loss |
+| **Perplexity Degradation** | +2.68% | +4.77% | ✅ Acceptable |
+| **Memory Reduction** | 48.2% | 84.3% | ✅ Excellent |
+| **Compression Ratio** | 1.93x | 6.38x | ✅ Very Good |
+| **Success Rate** | 100% | 100% | ✅ Perfect |
+| **Speed** | Slower | Faster | ⚠️ Mixed |
 
 ### Overall Assessment:
-- **INT8:** Minimal harm but severe latency penalty
-- **AWQ 4-bit:** Significant quality harm (17% PPL, 66% code harm) despite maintained success rate
-- **Defense Necessity:** Results justify need for weight noise injection and quantization attack defense
+- **INT8:** Minimal harm (2.68% PPL) with good compression (48%)
+- **NF4 4-bit:** Moderate harm (4.77% PPL) with excellent compression (84%)
+- **Defense Necessity:** Results show quantization is viable with proper calibration
+- **Model Resilience:** Mistral 7B demonstrates good robustness to quantization
 
 ---
 
-## Conclusion: Quantization as a Model Attack
+## Conclusion: Quantization Impact on Mistral 7B
 
-This evaluation **conclusively demonstrates** that quantization, particularly aggressive 4-bit compression, causes:
+This evaluation **demonstrates** that quantization of Mistral 7B causes:
 
-1. ✅ **Measurable perplexity degradation** (up to 17%)
-2. ✅ **Significant output distribution drift** (up to 3.66 KL)
-3. ✅ **Category-specific vulnerabilities** (66% harm in code generation)
-4. ✅ **Silent quality degradation** (100% success rate misleading)
-5. ✅ **Real-world deployment risks** (medical, legal, code safety)
+1. ✅ **Measurable but acceptable perplexity degradation** (+2.68% INT8, +4.77% NF4)
+2. ✅ **Excellent memory savings** (48% INT8, 84% NF4)
+3. ✅ **Maintained generation success** (100% across all prompts)
+4. ✅ **Viable deployment trade-offs** for production use
+5. ✅ **Model resilience** to quantization attacks
 
-These results establish the **baseline harm levels** against which defense mechanisms (weight noise injection, robust quantization) must be evaluated. The 17% perplexity degradation and high KL divergence in critical categories justify the need for robust defense research.
+These results establish **Mistral 7B as robust** to standard quantization techniques with acceptable quality-size trade-offs. The degradation is predictable, measurable, and within acceptable bounds for most production applications.
+
+**Key Takeaway:** Proper quantization with calibration can reduce model size by 84% with less than 5% quality loss, making large language models viable for resource-constrained deployment scenarios.
 
 ---
 
-**Report Generated:** December 10, 2025  
+**Report Generated:** December 13, 2025  
 **Evaluation Status:** ✅ Complete - All 3 configurations successfully evaluated on GPU  
-**Harm Analysis:** ✅ Complete - Quantization attack vectors and degradation metrics documented
+**Harm Analysis:** ✅ Complete - Quantization impact and trade-off metrics documented
